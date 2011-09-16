@@ -1,0 +1,66 @@
+apply plugin: 'scala'
+apply plugin: 'idea'
+
+version = '0.1'
+
+targetCompatibility = 1.6
+sourceCompatibility = 1.6
+
+defaultTasks 'build'
+
+jnaVersion = '3.3.0'
+scalaVersion = '2.9.0-1'
+
+slf4jVersion = '1.6.1'
+logbackVersion = '0.9.28'
+junitVersion = '4.+'
+
+repositories {
+
+    mavenRepo urls: ["http://repo2.maven.org/maven2/",
+                     "http://repository.jboss.org/nexus/content/groups/public/"]
+    }
+
+dependencies {
+
+    compile (
+        [ group: 'net.java.dev.jna',               name: 'jna',                  version: jnaVersion ],
+        [ group: 'org.scala-lang',                 name: 'scala-library',        version: scalaVersion ],
+
+        [ group: 'org.slf4j',                      name: 'jcl-over-slf4j',       version: slf4jVersion ],
+        [ group: 'ch.qos.logback',                 name: 'logback-classic',      version: logbackVersion ]
+    )
+
+    testCompile (
+        [ group: 'junit',                          name: 'junit',                version: junitVersion ]
+    )
+
+    // libraries needed to run the scala tools
+    scalaTools (
+        [group: 'org.scala-lang',                  name: 'scala-compiler',       version: scalaVersion ],
+        [group: 'org.scala-lang',                  name: 'scala-library',        version: scalaVersion ]
+    )
+}
+
+// more RAM makes generally keeps tests happy
+test {
+    maxHeapSize = "1024m"
+    outputs.upToDateWhen { false }
+
+}
+
+/*
+manifest.mainAttributes("Main-Class" : "com.miax.battleground.SopwithCamel")
+
+jar {
+    dependsOn configurations.runtime
+    from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }
+}
+*/
+
+ideaModule {
+    beforeConfigured { module ->
+        module.dependencies.clear()
+    }
+}
+
