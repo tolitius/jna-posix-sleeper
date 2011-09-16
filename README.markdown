@@ -21,5 +21,6 @@ object GoodNightSleeper {...}
 ### Feeling Adventurous?
 
 Java version works like a charm. 
-Scala one is ready to, but needs a JNA Scala'образный "Structure" hook from [Scala Native Access](http://code.google.com/p/scala-native-access/)
+
+Scala one is ready to go, but needs a JNA Scala'образный "Structure" hook from [Scala Native Access](http://code.google.com/p/scala-native-access/)
 
